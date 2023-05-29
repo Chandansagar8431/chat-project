@@ -1,0 +1,6 @@
+{
+  "complierOption": {
+    "baseUrl": "src"
+  },
+  "include": ["src"]
+}
