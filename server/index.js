@@ -45,8 +45,8 @@ Connect();
 // };
 // insert();
 
-app.post("/auth/register", upload.single("picture"), Register);
-app.post("/post", upload.single("picture"), Createpost);
+app.post("/auth/register", upload.single("picturepath"), Register);
+app.post("/post", upload.single("picturepath"), Createpost);
 app.use("/auth", AuthRoutes);
 app.use("/user", require("./routes/users"));
 app.use("/post", require("./routes/post"));

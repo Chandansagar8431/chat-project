@@ -1,7 +1,12 @@
-import React from "react";
+import { React, useState } from "react";
+import Navbar from "../Navbar/Navbar";
 
-const Homepage = () => {
-  return <div>homepage</div>;
+const Homepage = ({ mode, handlemode }) => {
+  return (
+    <div>
+      <Navbar mode={mode} handlemode={handlemode} />
+    </div>
+  );
 };
 
 export default Homepage;

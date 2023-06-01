@@ -14,16 +14,17 @@ function App() {
   const handlemode = () => {
     setmode(mode === "dark" ? "light" : "dark");
   };
-
   const theme = useMemo(() => createTheme(Themesettings(mode)), [mode]);
   return (
     <div className="App">
       <BrowserRouter>
         <ThemeProvider theme={theme}>
-          <Navbar mode={mode} handlemode={handlemode} />
           <Routes>
             <Route path="/" element={<Loginpage />} />
-            <Route path="/home" element={<Homepage />} />
+            <Route
+              path="/home"
+              element={<Homepage mode={mode} handlemode={handlemode} />}
+            />
             <Route path="/profile/:userid" element={<Profilepage />} />
           </Routes>
         </ThemeProvider>
