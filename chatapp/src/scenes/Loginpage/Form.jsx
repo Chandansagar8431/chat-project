@@ -82,9 +82,12 @@ const Form = () => {
       );
 
       if (loggeduser) {
-        dispatch(setLogin({ user: loggeduser.user, token: loggeduser.token }));
+        dispatch(
+          setLogin({ user: loggeduser.data.user, token: loggeduser.data.token })
+        );
         navigate("/home");
         onSubmitProps.resetForm();
+        localStorage.setItem("loggeduser", JSON.stringify(loggeduser.data));
       }
     } catch (error) {
       console.log(error.message);
