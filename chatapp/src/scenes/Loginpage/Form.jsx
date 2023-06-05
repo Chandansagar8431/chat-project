@@ -85,9 +85,10 @@ const Form = () => {
         dispatch(
           setLogin({ user: loggeduser.data.user, token: loggeduser.data.token })
         );
-        navigate("/home");
-        onSubmitProps.resetForm();
         localStorage.setItem("loggeduser", JSON.stringify(loggeduser.data));
+
+        onSubmitProps.resetForm();
+        navigate("/home");
       }
     } catch (error) {
       console.log(error.message);
@@ -126,6 +127,11 @@ const Form = () => {
                     label="first name"
                     value={values.firstname}
                     name="firstname"
+                    autoComplete="off"
+                    variant="outlined"
+                    inputProps={{
+                      "aria-autocomplete": "none",
+                    }}
                     error={
                       Boolean(touched.firstname) && Boolean(errors.firstname)
                     }
@@ -138,6 +144,7 @@ const Form = () => {
                     label="last name"
                     value={values.lastname}
                     name="lastname"
+                    autoComplete="off"
                     error={
                       Boolean(touched.lastname) && Boolean(errors.lastname)
                     }
@@ -150,18 +157,25 @@ const Form = () => {
                     label="occupation"
                     value={values.occupation}
                     name="occupation"
+                    autoComplete="off"
                     error={
                       Boolean(touched.occupation) && Boolean(errors.occupation)
                     }
                     helperText={touched.occupation && errors.occupation}
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    sx={{ gridColumn: "span 4" }}
+                    sx={{
+                      gridColumn: "span 4",
+                      "&:autoComplete": {
+                        backgroundColor: theme.palette.background.default,
+                      },
+                    }}
                   />
                   <TextField
                     label="location"
                     value={values.location}
                     name="location"
+                    autoComplete="off"
                     error={
                       Boolean(touched.location) && Boolean(errors.location)
                     }
