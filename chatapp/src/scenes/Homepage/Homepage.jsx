@@ -5,6 +5,7 @@ import UserImage from "../../components/UserImage";
 import UserLayout from "./UserLayout";
 import { useSelector, useDispatch } from "react-redux";
 import { setLogin } from "../../state";
+import MyPostLayout from "../Postswidgets/MyPostLayout";
 
 const Homepage = ({ mode, handlemode }) => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
@@ -27,6 +28,7 @@ const Homepage = ({ mode, handlemode }) => {
         display={isNonMobileScreens ? "flex" : "block"}
         width="100%"
         height="100%"
+        gap="40px"
         backgroundColor={theme.palette.background.default}>
         <Box
           flexBasis={isNonMobileScreens ? "25%" : undefined}
@@ -37,6 +39,14 @@ const Homepage = ({ mode, handlemode }) => {
           marginLeft="20px"
           backgroundColor={theme.palette.background.alt}>
           <UserLayout userId={_id} picturePath={picturepath} />
+        </Box>
+        <Box
+          flexBasis={isNonMobileScreens ? "35%" : undefined}
+          border={`1px solid ${theme.palette.secondary.light}`}
+          marginTop="1.5rem"
+          padding="1rem"
+          borderRadius="20px">
+          <MyPostLayout picturePath={picturepath} />
         </Box>
       </Box>
     </Box>

@@ -83,7 +83,7 @@ const UserLayout = ({ userId, picturePath }) => {
           size: "10px",
         }}
       />
-      <Box display="flex" gap="25px" alignItems="center" paddingLeft="1rem">
+      <Box display="flex" gap="20px" alignItems="center" paddingLeft="1rem">
         <LocationCityOutlined sx={{ color: theme.palette.secondary.medium }} />
         <Typography sx={{ color: theme.palette.secondary.medium }}>
           facke Location
@@ -91,7 +91,7 @@ const UserLayout = ({ userId, picturePath }) => {
       </Box>
       <Box
         display="flex"
-        gap="25px"
+        gap="20px"
         alignItems="center"
         paddingLeft="1rem"
         marginTop="5px">
@@ -127,7 +127,7 @@ const UserLayout = ({ userId, picturePath }) => {
           social profiles
         </Typography>
         <Flexbetween gap="10px">
-          <Box display="flex" gap="10px" alignItems="center">
+          <Box display="flex" gap="20px" alignItems="center">
             <img
               src={linkdin}
               alt="linkdin"
@@ -148,7 +148,7 @@ const UserLayout = ({ userId, picturePath }) => {
       </Box>
 
       <Flexbetween gap="10px" paddingLeft="1rem">
-        <Box display="flex" gap="10px" alignItems="center">
+        <Box display="flex" gap="20px" alignItems="center">
           <img
             src={twitter}
             alt="twitter"
