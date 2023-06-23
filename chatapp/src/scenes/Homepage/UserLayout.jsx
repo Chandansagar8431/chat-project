@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import UserImage from "../../components/UserImage";
 import { Box, Divider, Typography, useTheme } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   ManageAccountsOutlined,
   LocationCityOutlined,
@@ -14,9 +14,26 @@ import twitter from "../../assets/twitter.png";
 import Flexbetween from "../../components/Flexbetween";
 
 const UserLayout = ({ userId, picturePath }) => {
+  const [userW, setuserW] = useState([]);
   const theme = useTheme();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.token);
   const user = useSelector((state) => state.user);
+  const getUesr = async () => {
+    try {
+      const res = await fetch(`http://localhost:5000/user/${userId}`, {
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const user = await res.json();
+      console.log(user);
+      setuserW(user);
+    } catch (error) {}
+  };
+  useEffect(() => {
+    getUesr();
+  }, []);
   return (
     <Box
       padding="1.5rem"
@@ -40,21 +57,23 @@ const UserLayout = ({ userId, picturePath }) => {
         <Box flexGrow="5">
           <Typography
             fontWeight="500"
-            fontSize="1.0rem"
+            fontSize="20px"
             paddingLeft="2rem"
             sx={{
               display: "flex",
               alignItems: "center",
               gap: "1rem",
-              justifyContent: "space-around ",
+              justifyContent: "space-between ",
               color: theme.palette.secondary.medium,
             }}>
-            {user.firstname} {user.lastname}
+            {userW.firstname} {userW.lastname}
             <ManageAccountsOutlined
-              sx={{ color: theme.palette.secondary.medium }}
+              sx={{
+                color: theme.palette.secondary.medium,
+              }}
             />
           </Typography>
-          <Typography
+          <Box
             marginTop="12px"
             fontWeight="500"
             fontSize="1.0rem"
@@ -63,7 +82,7 @@ const UserLayout = ({ userId, picturePath }) => {
               display: "flex",
               alignItems: "center",
               gap: "1rem",
-              justifyContent: "space-around",
+              justifyContent: "space-between",
               color: theme.palette.secondary.medium,
             }}>
             <Typography
@@ -72,8 +91,10 @@ const UserLayout = ({ userId, picturePath }) => {
               sx={{ color: theme.palette.secondary.medium }}>
               friends
             </Typography>
-            {user.friends.length}
-          </Typography>
+            <Typography sx={{ paddingRight: "5px" }}>
+              {userW.friends ? user.friends.length : 0}
+            </Typography>
+          </Box>
         </Box>
       </Box>
       <Divider

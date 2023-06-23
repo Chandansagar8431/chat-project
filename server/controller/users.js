@@ -35,7 +35,19 @@ const Getuserfriends = async (req, res) => {
     );
     console.log(userfriends);
     if (userfriends) {
-      return res.status(200).json(userfriends);
+      const userfriendsList = userfriends.map(
+        ({ firstname, lastname, location, occupation, picturepath, _id }) => {
+          return {
+            firstname,
+            lastname,
+            location,
+            occupation,
+            picturepath,
+            _id,
+          };
+        }
+      );
+      return res.status(200).json(userfriendsList);
     }
 
     res.status(404).json({ msg: "no friends found" });
@@ -49,8 +61,9 @@ const AddRemovefreinds = async (req, res) => {
     const { id, friendid } = req.params;
     const user = await User.findById(id);
     const friend = await User.findById(friendid);
-
-    if (user.friends.includes(friendid)) {
+    if (id === friendid) {
+      return res.status(200).json([]);
+    } else if (user.friends.includes(friendid)) {
       user.friends = user.friends.filter((id) => id !== friendid);
       friend.friends = friend.friends.filter((id) => id !== id);
     } else {
@@ -63,8 +76,15 @@ const AddRemovefreinds = async (req, res) => {
       user.friends.map((friendid) => User.findById(friendid))
     );
     const friendsdata = friendlist.map(
-      ({ firstname, lastname, occupation, location, picturepath }) => {
-        return { firstname, lastname, occupation, location, picturepath };
+      ({ firstname, lastname, occupation, location, picturepath, _id }) => {
+        return {
+          firstname,
+          lastname,
+          occupation,
+          location,
+          picturepath,
+          _id,
+        };
       }
     );
     res.status(200).json(friendsdata);

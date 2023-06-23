@@ -66,16 +66,23 @@ const MyPostLayout = ({ picturePath }) => {
 
   return (
     <>
-      <Box display="flex" gap="40px" paddingLeft="10px">
+      <Box
+        display="flex"
+        gap="40px"
+        paddingLeft="10px"
+        border={`1px solid ${theme.palette.secondary.light}`}
+        borderRadius="20px"
+        padding="1rem">
         <UserImage picture={picturePath} />
         <Box display="flex" alignItems="center" gap="180px">
           <Box flexBasis="100%">
             <InputBase
-              fullWidth="true"
               placeholder="what's in your mind ..."
               onChange={(e) => setpost(e.target.value)}
               value={post}
               sx={{
+                fontSize: "17px",
+                width: "150%",
                 borderRadius: "20px",
                 backgroundColor: theme.palette.background.alt,
                 paddingX: "10px",
@@ -87,6 +94,7 @@ const MyPostLayout = ({ picturePath }) => {
             onClick={UserPost}
             sx={{
               "&:hover": { backgroundColor: theme.palette.background.default },
+              fontSize: "15px",
             }}>
             Post
             <ArrowRightAltOutlined
@@ -194,11 +202,7 @@ const MyPostLayout = ({ picturePath }) => {
           )}
         </Flexbetween>
       )}
-      <Divider sx={{ marginTop: "10px" }} />
-      <Box>
-        {" "}
-        <AllPosts userid={user._id} />
-      </Box>
+      <Divider sx={{ marginTop: "10px", marginBottom: "6px" }} />
     </>
   );
 };

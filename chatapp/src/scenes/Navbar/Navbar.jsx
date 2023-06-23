@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -19,13 +19,21 @@ import {
   Notifications,
   Close,
 } from "@mui/icons-material";
-const Navbar = ({ mode, handlemode }) => {
-  const [name, setname] = useState("chandan sagar");
+import { setLogout, setPosts } from "../../state";
+import { useDispatch, useSelector } from "react-redux";
+const Navbar = ({ mode, handlemode, searchedResults }) => {
+  const [search, setsearch] = useState("");
+  const [searchResults, setsearchResult] = useState([]);
+
+  const token = useSelector((state) => state.token);
+  const user = useSelector((state) => state.user);
+  const posts = useSelector((state) => state.posts);
 
   const [toggleMobileMenu, settoggleMobileMenu] = useState(false);
   const isNonMobilescreen = useMediaQuery("(min-width:1000px)");
   const theme = useTheme();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const primary = theme.palette.primary;
   const alt = theme.palette.background.alt;
   const background = theme.palette.background.default;
@@ -33,12 +41,31 @@ const Navbar = ({ mode, handlemode }) => {
   const medium = theme.palette.secondary.medium;
   const light = theme.palette.primary.light;
   const neutrallight = theme.palette.secondary.light;
+
+  const getPosts = async () => {
+    try {
+      const res = await fetch(`http://localhost:5000/post/all`, {
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const posts = await res.json();
+      dispatch(setPosts({ posts: posts }));
+      setsearchResult(posts);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getPosts();
+    searchedResults(searchResults, search);
+  }, [search]);
   return (
     <Flexbetween padding="1rem 6%" backgroundColor={alt} margin="0">
       <Flexbetween gap="2rem">
         <Typography
           fontSize="clamp(1rem,2rem,2.5rem)"
-          fontweight="bold"
+          fontWeight="bold"
           color="primary"
           onClick={() => navigate("/home")}
           sx={{ "&:hover": { cursor: "pointer" } }}>
@@ -49,7 +76,14 @@ const Navbar = ({ mode, handlemode }) => {
             backgroundColor={light}
             paddingX="0.5rem"
             borderRadius="5px">
-            <InputBase placeholder="search..." sx={{ fontSize: "20px" }} />
+            <InputBase
+              placeholder="search..."
+              sx={{ fontSize: "20px" }}
+              value={search}
+              onChange={(e) => {
+                setsearch(e.target.value);
+              }}
+            />
             <Search sx={{ fontSize: "25px", color: "#7e999e" }} />
           </Flexbetween>
         )}
@@ -68,20 +102,30 @@ const Navbar = ({ mode, handlemode }) => {
           <Notifications sx={{ color: dark }} />
           <FormControl varient="standard">
             <Select
-              value="chandan sagar"
+              value={`${user.firstname} ${user.lastname}`}
               sx={{
                 "& .MuiSvgIcon-root": { width: "2rem" },
                 "& .MuiSelect-select:focus": {
-                  backgroundColor: neutrallight,
+                  backgroundColor: theme.palette.background.default,
                   borderRadius: "20px",
                 },
                 width: "200px",
                 borderRadius: "20px",
               }}>
-              <MenuItem value="chandan sagar">
-                <Typography sx={{ fontSize: "15px" }}>chandan sagar</Typography>
+              <MenuItem
+                value={`${user.firstname} ${user.lastname}`}
+                onClick={() => navigate(`/profile/${user._id}`)}>
+                <Typography sx={{ fontSize: "15px" }}>
+                  {" "}
+                  {`${user.firstname} ${user.lastname}`}
+                </Typography>
               </MenuItem>
-              <MenuItem sx={{ fontSize: "15px", paddingX: "1.0rem" }}>
+              <MenuItem
+                onClick={() => {
+                  dispatch(setLogout());
+                  navigate("/");
+                }}
+                sx={{ fontSize: "15px", paddingX: "1.0rem" }}>
                 Logout
               </MenuItem>
             </Select>
