@@ -20,7 +20,7 @@ const Loginpage = () => {
           fontSize="clamp(1.5rem,2rem,2.5rem)"
           fontWeight="bold"
           color="primary">
-          Socciopedia
+          Chat pedia
         </Typography>
       </Box>
       <Box
@@ -36,7 +36,7 @@ const Loginpage = () => {
           variant="h5"
           color="primary"
           sx={{}}>
-          welcome to socio chatapp
+          welcome to chatapp
         </Typography>
         <Formlayout />
       </Box>
