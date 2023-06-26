@@ -89,7 +89,7 @@ const Homepage = ({ mode, handlemode }) => {
             marginRight="20px"
             backgroundColor={theme.palette.background.alt}
             borderRadius="20px">
-            <FriendsListLayout userid={userid} />
+            <FriendsListLayout />
           </Box>
         ) : null}
       </Box>

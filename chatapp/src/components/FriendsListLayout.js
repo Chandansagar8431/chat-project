@@ -4,17 +4,13 @@ import { useSelector, useDispatch } from "react-redux";
 import Friend from "./Friend";
 import { setFriends } from "../state";
 
-const FriendsListLayout = ({ userid }) => {
+const FriendsListLayout = () => {
+  const [loading, setloading] = useState(false);
   const theme = useTheme();
   const token = useSelector((state) => state.token);
   const friends = useSelector((state) => state.user.friends);
   const id = useSelector((state) => state.user._id);
-  console.log(friends);
 
-  const dispatch = useDispatch();
-  useEffect(() => {
-    getFriendsLists();
-  }, []);
   const getFriendsLists = async () => {
     const res = await fetch(`http://localhost:5000/user/friends/${id}`, {
       method: "GET",
@@ -26,7 +22,13 @@ const FriendsListLayout = ({ userid }) => {
     const friendsLists = await res.json();
     console.log(friendsLists);
     dispatch(setFriends({ friends: friendsLists }));
+    setloading(true);
   };
+  const dispatch = useDispatch();
+  useEffect(() => {
+    getFriendsLists();
+  }, []);
+
   console.log(friends);
   return (
     <Box
@@ -42,18 +44,25 @@ const FriendsListLayout = ({ userid }) => {
         }}>
         Friends Lists
       </Typography>
-      {friends.map((friend) => (
-        <Box key={`${friend._id} ${friend.firstname}`}>
-          <Friend
-            key={`${friend._id} ${friend.firstname}`}
-            friendid={friend._id}
-            userpicturepath={friend.picturepath}
-            location={friend.location}
-            name={`${friend.firstname} ${friend.lastname}`}
-          />
-          <Divider sx={{ border: "1px dashed white", marginY: "10px" }} />
-        </Box>
-      ))}
+
+      {loading &&
+        friends.map((friend) => (
+          <Box key={`${friend._id} ${friend.firstname}`}>
+            <Friend
+              key={`${friend._id} ${friend.firstname}`}
+              friendid={friend._id}
+              userpicturepath={friend.picturepath}
+              location={friend.location}
+              name={`${friend.firstname} ${friend.lastname}`}
+            />
+            <Divider
+              sx={{
+                border: `1px dashed ${theme.palette.secondary.medium}`,
+                marginY: "10px",
+              }}
+            />
+          </Box>
+        ))}
     </Box>
   );
 };

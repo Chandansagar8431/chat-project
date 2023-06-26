@@ -69,7 +69,7 @@ const Navbar = ({ mode, handlemode, searchedResults }) => {
           color="primary"
           onClick={() => navigate("/home")}
           sx={{ "&:hover": { cursor: "pointer" } }}>
-          Sociopedia
+          Chat pedia
         </Typography>
         {isNonMobilescreen && (
           <Flexbetween

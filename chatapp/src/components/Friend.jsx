@@ -56,12 +56,16 @@ const Friend = ({ friendid, userpicturepath, location, name }) => {
         alignItems="center">
         <UserImage picture={userpicturepath} />
         <Box padding="0.5rem">
-          <Typography fontSize="17px" color={theme.palette.secondary.main}>
-            {name}
-          </Typography>
-          <Typography color={theme.palette.secondary.main}>
-            {location}
-          </Typography>
+          {name && (
+            <>
+              <Typography fontSize="17px" color={theme.palette.secondary.main}>
+                {name}
+              </Typography>
+              <Typography color={theme.palette.secondary.main}>
+                {location}
+              </Typography>
+            </>
+          )}
         </Box>
       </Box>
 
