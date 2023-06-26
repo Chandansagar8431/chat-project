@@ -19,7 +19,7 @@ const Profilepage = () => {
   const { _id, picturepath } = useSelector((state) => state.user);
 
   const userPosts = useSelector((state) => state.posts);
-  console.log(userid);
+
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const dispatch = useDispatch();
   const getUserPosts = async () => {

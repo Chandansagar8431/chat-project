@@ -29,7 +29,7 @@ import { setPosts } from "../../state";
 const MyPostLayout = ({ picturePath }) => {
   const user = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
-  console.log(user._id);
+
   const theme = useTheme();
   const dispatch = useDispatch();
   const [isImage, setisImage] = useState(false);
