@@ -60,6 +60,7 @@ const Homepage = ({ mode, handlemode }) => {
           borderRadius="40px"
           marginTop="20px"
           marginLeft="20px"
+          marginRight="20px"
           backgroundColor={theme.palette.background.alt}>
           <UserLayout userId={_id} picturePath={picturepath} />
         </Box>

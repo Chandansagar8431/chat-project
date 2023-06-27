@@ -36,6 +36,8 @@ const MyPostLayout = ({ picturePath }) => {
   const [image, setimage] = useState(null);
   const [post, setpost] = useState("");
 
+  const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
+
   console.log(post);
   const UserPost = async () => {
     console.log("hi");
@@ -74,15 +76,19 @@ const MyPostLayout = ({ picturePath }) => {
         borderRadius="20px"
         padding="1rem">
         <UserImage picture={picturePath} />
-        <Box display="flex" alignItems="center" gap="180px">
-          <Box flexBasis="100%">
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent={isNonMobileScreens ? undefined : "flex-between"}
+          gap={isNonMobileScreens ? "180px" : "50px"}>
+          <Box flexBasis={isNonMobileScreens ? "100%" : "50%"}>
             <InputBase
               placeholder="what's in your mind ..."
               onChange={(e) => setpost(e.target.value)}
               value={post}
               sx={{
                 fontSize: "17px",
-                width: "150%",
+                width: `${isNonMobileScreens}` ? "150%" : "40px",
                 borderRadius: "20px",
                 backgroundColor: theme.palette.background.alt,
                 paddingX: "10px",

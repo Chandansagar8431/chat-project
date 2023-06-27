@@ -16,7 +16,7 @@ function App() {
   };
   const theme = useMemo(() => createTheme(Themesettings(mode)), [mode]);
   return (
-    <div className="App">
+    <div className="app">
       <BrowserRouter>
         <ThemeProvider theme={theme}>
           <Routes>
