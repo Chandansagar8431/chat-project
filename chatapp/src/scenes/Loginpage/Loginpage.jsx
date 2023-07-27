@@ -14,17 +14,17 @@ const Loginpage = () => {
   const alt = theme.palette.background.alt;
   const def = theme.palette.background.default;
   return (
-    <Box width="100%" height="100%" backgroundColor={alt}>
+    <Box backgroundColor={alt} minHeight="100vh">
       <Box textAlign="center" padding="1rem 6%" backgroundColor={def}>
         <Typography
           fontSize="clamp(1.5rem,2rem,2.5rem)"
           fontWeight="bold"
           color="primary">
-          Socciopedia
+          Chat pedia
         </Typography>
       </Box>
       <Box
-        width={isNonMobileScreens ? "50%" : "90%"}
+        width={isNonMobileScreens ? "50%" : "80%"}
         m="2rem auto"
         borderRadius="1.5rem"
         p="2rem"
@@ -36,7 +36,7 @@ const Loginpage = () => {
           variant="h5"
           color="primary"
           sx={{}}>
-          welcome to socio chatapp
+          welcome to chatapp
         </Typography>
         <Formlayout />
       </Box>

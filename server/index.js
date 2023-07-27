@@ -18,8 +18,7 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(cors());
-app.use(helmet());
-app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
+
 app.use(morgan("common"));
 
 const direcpath = path.join(__dirname, "public/assets");

@@ -3,8 +3,22 @@
 html,
 body,
 #root,
-.App {
-  height: 100%;
-  width: 100%;
+.app {
+  box-sizing: border-box;
+  max-height: 100%;
+  max-width: 1880px;
   font-family: "Rubik", sans-serif;
 }
+/* ::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #e0e0e0;
+}
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+::-webkit-scrollbar-track:hover {
+  background: #555;
+}
+ */
